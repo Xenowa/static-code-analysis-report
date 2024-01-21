@@ -5,18 +5,27 @@ import {
     Button
 } from "@mui/material"
 import SingleFileTable from "./SingleFileTable"
+import { useEffect, useState } from "react"
 
 
-function SingleFileView({ toggleMainView, fileView }) {
+function SingleFileView({ toggleMainView, requestedFile }) {
+    const [issues, setIssues] = useState()
+
+    useEffect(() => {
+        if (requestedFile?.issues?.length !== 0) {
+            setIssues(requestedFile.issues)
+        }
+    }, [requestedFile])
+
     return (
         <Box sx={{ marginTop: "1rem" }}>
-            <SingleFileBackIcon toggleMainView={toggleMainView} fileView={fileView} />
-            <SingleFileTable />
+            <SingleFileBackIcon toggleMainView={toggleMainView} fileName={requestedFile?.fileName} />
+            <SingleFileTable issues={issues} />
         </Box>
     )
 }
 
-const SingleFileBackIcon = ({ toggleMainView, fileView }) => {
+const SingleFileBackIcon = ({ toggleMainView, fileName }) => {
     return (
         <Box sx={{
             display: "flex",
@@ -40,7 +49,7 @@ const SingleFileBackIcon = ({ toggleMainView, fileView }) => {
                     />
                 </Button>
                 <Typography variant="h3" fontWeight="bold">
-                    {fileView.requestedFileName}
+                    {fileName}
                 </Typography>
             </Box>
 

@@ -11,7 +11,7 @@ import {
     Typography
 } from "@mui/material"
 
-function InfoCards() {
+function InfoCards({ statistics }) {
     return (
         <Box sx={{
             display: "flex",
@@ -41,7 +41,7 @@ function InfoCards() {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Typography variant="h2">0</Typography>
+                    <Typography variant="h2">{statistics.filesScanned}</Typography>
                     <Typography variant="h5">Total files scanned</Typography>
                 </Box>
             </Card>
@@ -66,7 +66,7 @@ function InfoCards() {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Typography variant="h2">0</Typography>
+                    <Typography variant="h2">{statistics.totalCodeSmells}</Typography>
                     <Typography variant="h5">Code Smells</Typography>
                 </Box>
             </Card>
@@ -91,7 +91,7 @@ function InfoCards() {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Typography variant="h2">0</Typography>
+                    <Typography variant="h2">{statistics.totalBugs}</Typography>
                     <Typography variant="h5">Bugs</Typography>
                 </Box>
             </Card>
@@ -116,7 +116,7 @@ function InfoCards() {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                    <Typography variant="h2">0</Typography>
+                    <Typography variant="h2">{statistics.totalVulnerabilities}</Typography>
                     <Typography variant="h5">Vulnerabilities</Typography>
                 </Box>
             </Card>

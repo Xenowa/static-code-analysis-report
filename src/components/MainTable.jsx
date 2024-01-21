@@ -12,6 +12,7 @@ import {
     DataGrid,
     GridToolbar
 } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
 
 
 const columns = [
@@ -84,47 +85,25 @@ const columns = [
     },
 ];
 
-const rows = [
-    { id: 1, fileName: "main.bal", codeSmells: 2, bugs: 1, vulnerabilities: 4 },
-    { id: 2, fileName: "module1_file.bal", codeSmells: 3, bugs: 2, vulnerabilities: 0 },
-    { id: 3, fileName: "module2_file.bal", codeSmells: 1, bugs: 5, vulnerabilities: 2 },
-    { id: 4, fileName: "module3_file.bal", codeSmells: 0, bugs: 1, vulnerabilities: 3 },
-    { id: 5, fileName: "module4_file.bal", codeSmells: 4, bugs: 0, vulnerabilities: 1 },
-    { id: 6, fileName: "module5_file.bal", codeSmells: 2, bugs: 3, vulnerabilities: 0 },
-    { id: 7, fileName: "module6_file.bal", codeSmells: 0, bugs: 2, vulnerabilities: 1 },
-    { id: 8, fileName: "module7_file.bal", codeSmells: 1, bugs: 0, vulnerabilities: 4 },
-    { id: 9, fileName: "module8_file.bal", codeSmells: 5, bugs: 4, vulnerabilities: 2 },
-    { id: 10, fileName: "module9_file.bal", codeSmells: 3, bugs: 1, vulnerabilities: 0 },
-    { id: 11, fileName: "module10_file.bal", codeSmells: 0, bugs: 3, vulnerabilities: 2 },
-    { id: 12, fileName: "module11_file.bal", codeSmells: 2, bugs: 0, vulnerabilities: 5 },
-    { id: 13, fileName: "module12_file.bal", codeSmells: 4, bugs: 2, vulnerabilities: 1 },
-    { id: 14, fileName: "module13_file.bal", codeSmells: 1, bugs: 4, vulnerabilities: 3 },
-    { id: 15, fileName: "module14_file.bal", codeSmells: 0, bugs: 0, vulnerabilities: 4 },
-    { id: 16, fileName: "module15_file.bal", codeSmells: 3, bugs: 5, vulnerabilities: 0 },
-    { id: 17, fileName: "module16_file.bal", codeSmells: 2, bugs: 3, vulnerabilities: 1 },
-    { id: 18, fileName: "module17_file.bal", codeSmells: 4, bugs: 1, vulnerabilities: 0 },
-    { id: 19, fileName: "module18_file.bal", codeSmells: 0, bugs: 4, vulnerabilities: 2 },
-    { id: 20, fileName: "module19_file.bal", codeSmells: 1, bugs: 0, vulnerabilities: 3 },
-    { id: 21, fileName: "module20_file.bal", codeSmells: 5, bugs: 2, vulnerabilities: 1 },
-    { id: 22, fileName: "module21_file.bal", codeSmells: 2, bugs: 1, vulnerabilities: 0 },
-    { id: 23, fileName: "module22_file.bal", codeSmells: 3, bugs: 0, vulnerabilities: 4 },
-    { id: 24, fileName: "module23_file.bal", codeSmells: 0, bugs: 4, vulnerabilities: 3 },
-    { id: 25, fileName: "module24_file.bal", codeSmells: 4, bugs: 3, vulnerabilities: 0 },
-    { id: 26, fileName: "module25_file.bal", codeSmells: 1, bugs: 5, vulnerabilities: 2 },
-    { id: 27, fileName: "module26_file.bal", codeSmells: 3, bugs: 2, vulnerabilities: 1 },
-    { id: 28, fileName: "module27_file.bal", codeSmells: 2, bugs: 0, vulnerabilities: 4 },
-    { id: 29, fileName: "module28_file.bal", codeSmells: 0, bugs: 3, vulnerabilities: 2 },
-    { id: 30, fileName: "module29_file.bal", codeSmells: 5, bugs: 1, vulnerabilities: 0 },
-    { id: 31, fileName: "module30_file.bal", codeSmells: 1, bugs: 4, vulnerabilities: 2 },
-    { id: 32, fileName: "module31_file.bal", codeSmells: 3, bugs: 2, vulnerabilities: 0 },
-    { id: 33, fileName: "module32_file.bal", codeSmells: 2, bugs: 0, vulnerabilities: 3 },
-    { id: 34, fileName: "module33_file.bal", codeSmells: 4, bugs: 3, vulnerabilities: 1 },
-    { id: 35, fileName: "module34_file.bal", codeSmells: 0, bugs: 5, vulnerabilities: 2 },
-    { id: 36, fileName: "module35_file.bal", codeSmells: 1, bugs: 2, vulnerabilities: 4 },
-    { id: 37, fileName: "module36_file.bal", codeSmells: 3, bugs: 1, vulnerabilities: 0 },
-];
+function MainTable({ toggleSingleFileView, fileRecords }) {
+    const [rows, setRows] = useState([])
 
-function MainTable({ toggleSingleFileView }) {
+    useEffect(() => {
+        if (fileRecords?.length !== 0) {
+            fileRecords?.forEach((fileRecord, fileID) => {
+                const newRow = {
+                    id: fileID,
+                    fileName: fileRecord.fileName,
+                    codeSmells: fileRecord.codeSmells,
+                    bugs: fileRecord.bugs,
+                    vulnerabilities: fileRecord.vulnerabilities
+                }
+
+                setRows(prevRows => [...prevRows, newRow]);
+            })
+        }
+    }, [fileRecords])
+
     function cellClicked(event) {
         if (event.field === "fileName") {
             toggleSingleFileView(true, event.value)

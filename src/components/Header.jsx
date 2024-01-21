@@ -5,7 +5,7 @@ import {
 import BallerinaLogo from "../resources/Ballerina-Logo";
 
 
-function Header() {
+function Header({ projectName }) {
     return (
         <Box sx={{
             display: "flex",
@@ -23,12 +23,17 @@ function Header() {
                 <Typography
                     variant="h4"
                     color="primary"
-                    fontWeight="600"
+                    fontWeight="bold"
                     fontSize="1.4rem">
                     Scan Report
                 </Typography>
             </Box>
-            <Typography variant="h4">ProjectName</Typography>
+            <Typography
+                variant="h4"
+                fontWeight="bold"
+            >
+                {projectName}
+            </Typography>
         </Box>
     )
 }

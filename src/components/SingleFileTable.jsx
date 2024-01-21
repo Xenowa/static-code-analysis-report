@@ -9,12 +9,12 @@ import {
     DataGrid,
     GridToolbar
 } from '@mui/x-data-grid';
+import { useEffect, useState } from 'react';
 
 
 const issueTypeCell = (cellValue) => {
-    console.log(cellValue)
     switch (cellValue) {
-        case "code smell":
+        case "CODE_SMELL":
             return (
                 <Box>
                     <IconButton disabled>
@@ -23,7 +23,7 @@ const issueTypeCell = (cellValue) => {
                     <strong>Code Smell</strong>
                 </Box>
             )
-        case "bug":
+        case "BUG":
             return (
                 <Box>
                     <IconButton disabled>
@@ -32,7 +32,7 @@ const issueTypeCell = (cellValue) => {
                     <strong>Bug</strong>
                 </Box>
             )
-        case "vulnerability":
+        case "VULNERABILITY":
             return (
                 <Box>
                     <IconButton disabled>
@@ -90,25 +90,25 @@ const columns = [
     }
 ];
 
-const rows = [
-    { id: 1, ruleID: "S107", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 8 parameters,which is greater than the 7 authorized." },
-    { id: 2, ruleID: "S107", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 8 parameters,which is greater than the 7 authorized." },
-    { id: 3, ruleID: "S108", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 1 occurrences of checkpanic keyword. Please consider using the check keyword instead!" },
-    { id: 4, ruleID: "S108", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 1 occurrences of checkpanic keyword. Please consider using the check keyword instead!" },
-    { id: 5, ruleID: "S109", issueType: "bug", lineRange: `${0} - ${12}`, description: "Add a nested comment explaining why this function is empty or complete the implementation." },
-    { id: 6, ruleID: "S109", issueType: "bug", lineRange: `${0} - ${12}`, description: "Add a nested comment explaining why this function is empty or complete the implementation." },
-    { id: 7, ruleID: "S109", issueType: "bug", lineRange: `${0} - ${12}`, description: "Add a nested comment explaining why this function is empty or complete the implementation." },
-    { id: 8, ruleID: "S110", issueType: "vulnerability", lineRange: `${0} - ${12}`, description: "Some rule violation message" },
-    { id: 9, ruleID: "S110", issueType: "vulnerability", lineRange: `${0} - ${12}`, description: "Some rule violation message" },
-    { id: 10, ruleID: "S110", issueType: "vulnerability", lineRange: `${0} - ${12}`, description: "Some rule violation message" },
-    { id: 11, ruleID: "S110", issueType: "vulnerability", lineRange: `${0} - ${12}`, description: "Some rule violation message" },
-    { id: 12, ruleID: "S107", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 8 parameters,which is greater than the 7 authorized." },
-    { id: 13, ruleID: "S107", issueType: "code smell", lineRange: `${0} - ${12}`, description: "This function has 8 parameters,which is greater than the 7 authorized." },
-    { id: 14, ruleID: "S108", issueType: "bug", lineRange: `${0} - ${12}`, description: "This function has 1 occurrences of checkpanic keyword. Please consider using the check keyword instead!" },
-    { id: 15, ruleID: "S109", issueType: "bug", lineRange: `${0} - ${12}`, description: "Add a nested comment explaining why this function is empty or complete the implementation." },
-];
+function SingleFileTable({ issues }) {
+    const [rows, setRows] = useState([])
 
-function SingleFileTable() {
+    useEffect(() => {
+        if (issues?.length !== 0) {
+            issues?.forEach((issue, issueID) => {
+                const newRow = {
+                    id: issueID,
+                    ruleID: issue.ruleID,
+                    issueType: issue.type,
+                    lineRange: `${issue.textRange.startLine} - ${issue.textRange.endLine}`,
+                    description: issue.message
+                }
+
+                setRows(prevRows => [...prevRows, newRow]);
+            })
+        }
+    }, [issues])
+
     return (
         <Box sx={{
             maxWidth: "fit-content",
