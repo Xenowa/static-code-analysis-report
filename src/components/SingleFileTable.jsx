@@ -16,7 +16,7 @@ const issueTypeCell = (cellValue) => {
     switch (cellValue) {
         case "CODE_SMELL":
             return (
-                <Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "9rem" }}>
                     <IconButton disabled>
                         <CodeOffOutlined fontSize="large" sx={{ color: "#33B4AF" }} />
                     </IconButton>
@@ -25,7 +25,7 @@ const issueTypeCell = (cellValue) => {
             )
         case "BUG":
             return (
-                <Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "9rem" }}>
                     <IconButton disabled>
                         <BugReportOutlined fontSize="large" sx={{ color: "#FEAC39" }} />
                     </IconButton>
@@ -34,7 +34,7 @@ const issueTypeCell = (cellValue) => {
             )
         case "VULNERABILITY":
             return (
-                <Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "9rem" }}>
                     <IconButton disabled>
                         <LockOpenOutlined fontSize="large" sx={{ color: "#F74B5A" }} />
                     </IconButton>
@@ -73,7 +73,7 @@ const columns = [
                 <strong>Line Range</strong>
             )
         },
-        width: 100,
+        width: 245,
         headerAlign: "right",
         align: "right",
     },
@@ -84,7 +84,7 @@ const columns = [
                 <strong>Description</strong>
             )
         },
-        width: 245 + 145 * 3,
+        width: 245 + 145 * 2,
         headerAlign: "right",
         align: "right",
     }
@@ -100,7 +100,7 @@ function SingleFileTable({ issues }) {
                     id: issueID,
                     ruleID: issue.ruleID,
                     issueType: issue.type,
-                    lineRange: `${issue.textRange.startLine} - ${issue.textRange.endLine}`,
+                    lineRange: `(${issue.textRange.startLine}:${issue.textRange.startLineOffset}, ${issue.textRange.endLine}:${issue.textRange.endLineOffset})`,
                     description: issue.message
                 }
 
@@ -111,7 +111,7 @@ function SingleFileTable({ issues }) {
 
     return (
         <Box sx={{
-            maxWidth: "fit-content",
+            maxWidth: "90%",
             margin: "1rem auto",
         }}>
             <DataGrid

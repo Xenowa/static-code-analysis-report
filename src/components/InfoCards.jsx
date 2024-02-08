@@ -26,13 +26,12 @@ function InfoCards({ statistics }) {
                 alignItems: "center",
                 padding: "0.5rem",
                 bgcolor: "#2C2C2C",
-                gap: "1rem",
                 width: "15rem",
                 height: "100%",
                 color: "#ffffff",
                 borderRadius: "0.5rem"
             }}>
-                <IconButton disabled>
+                <IconButton disabled sx={{ flex: "0.5" }}>
                     <AssignmentOutlined color="white" sx={{ fontSize: "4rem" }} />
                 </IconButton>
                 <Box sx={{
@@ -40,6 +39,7 @@ function InfoCards({ statistics }) {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    flex: "1"
                 }}>
                     <Typography variant="h2">{statistics.filesScanned}</Typography>
                     <Typography variant="h5">Total files scanned</Typography>
@@ -51,13 +51,12 @@ function InfoCards({ statistics }) {
                 alignItems: "center",
                 padding: "0.5rem",
                 bgcolor: "#33B4AF",
-                gap: "1rem",
                 width: "15rem",
                 height: "100%",
                 color: "#ffffff",
                 borderRadius: "0.5rem"
             }}>
-                <IconButton disabled>
+                <IconButton disabled sx={{ flex: "0.5" }}>
                     <CodeOffOutlined color="white" sx={{ fontSize: "4rem" }} />
                 </IconButton>
                 <Box sx={{
@@ -65,6 +64,7 @@ function InfoCards({ statistics }) {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    flex: "1"
                 }}>
                     <Typography variant="h2">{statistics.totalCodeSmells}</Typography>
                     <Typography variant="h5">Code Smells</Typography>
@@ -76,13 +76,12 @@ function InfoCards({ statistics }) {
                 alignItems: "center",
                 padding: "0.5rem",
                 bgcolor: "#FEAC39",
-                gap: "1rem",
                 width: "15rem",
                 height: "100%",
                 color: "#ffffff",
                 borderRadius: "0.5rem"
             }}>
-                <IconButton disabled>
+                <IconButton disabled sx={{ flex: "0.5" }}>
                     <BugReportOutlined color="white" sx={{ fontSize: "4rem" }} />
                 </IconButton>
                 <Box sx={{
@@ -90,6 +89,7 @@ function InfoCards({ statistics }) {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    flex: "1"
                 }}>
                     <Typography variant="h2">{statistics.totalBugs}</Typography>
                     <Typography variant="h5">Bugs</Typography>
@@ -101,13 +101,12 @@ function InfoCards({ statistics }) {
                 alignItems: "center",
                 padding: "0.5rem",
                 bgcolor: "#F74B5A",
-                gap: "1rem",
                 width: "15rem",
                 height: "100%",
                 color: "#ffffff",
                 borderRadius: "0.5rem"
             }}>
-                <IconButton disabled>
+                <IconButton disabled sx={{ flex: "0.5" }}>
                     <LockOpenOutlined color="white" sx={{ fontSize: "4rem" }} />
                 </IconButton>
                 <Box sx={{
@@ -115,6 +114,7 @@ function InfoCards({ statistics }) {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    flex: "1"
                 }}>
                     <Typography variant="h2">{statistics.totalVulnerabilities}</Typography>
                     <Typography variant="h5">Vulnerabilities</Typography>
