@@ -92,6 +92,7 @@ const columns = [
 
 function SingleFileTable({ issues }) {
     const [rows, setRows] = useState([])
+    const REACT_REPORT_OFFSET = 1;
 
     useEffect(() => {
         if (issues?.length !== 0) {
@@ -100,7 +101,7 @@ function SingleFileTable({ issues }) {
                     id: issueID,
                     ruleID: issue.ruleID,
                     issueType: issue.type,
-                    lineRange: `(${issue.textRange.startLine}:${issue.textRange.startLineOffset}, ${issue.textRange.endLine}:${issue.textRange.endLineOffset})`,
+                    lineRange: `(${issue.textRange.startLine + REACT_REPORT_OFFSET}:${issue.textRange.startLineOffset}, ${issue.textRange.endLine}:${issue.textRange.endLineOffset + REACT_REPORT_OFFSET})`,
                     description: issue.message
                 }
 

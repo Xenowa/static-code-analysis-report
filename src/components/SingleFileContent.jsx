@@ -2,13 +2,14 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 
 
+const REACT_REPORT_OFFSET = 1;
 function SingleFileContent({ issues, fileContent }) {
     const [issueLines, setIssueLines] = useState([])
 
     useEffect(() => {
         if (issues?.length !== 0) {
             issues?.forEach((issue) => {
-                const newIssueLine = issue.textRange.startLine;
+                const newIssueLine = issue.textRange.startLine + REACT_REPORT_OFFSET;
 
                 setIssueLines(prevIssueLines => [...prevIssueLines, newIssueLine]);
             })
@@ -21,6 +22,7 @@ function SingleFileContent({ issues, fileContent }) {
 }
 
 const ContentMapper = ({ fileContent, issueLines }) => {
+    // Create a column of line numbers and the content of the file
     return (
         <Box sx={{
             display: "flex",
@@ -36,6 +38,7 @@ const ContentMapper = ({ fileContent, issueLines }) => {
             border: "1px solid var(--primary-color)",
             overflowX: "auto",
         }}>
+
             {
                 fileContent.split("\n").map((line, index) => {
                     return (
@@ -43,11 +46,11 @@ const ContentMapper = ({ fileContent, issueLines }) => {
                             margin: "0",
                             padding: "0.3rem 1rem",
                             // backgroundColor: "#f5f5f5",
-                            backgroundColor: issueLines.includes(index) ? "#F74B5A" : "#f5f5f5",
+                            backgroundColor: issueLines.includes(index + REACT_REPORT_OFFSET) ? "#F74B5A" : "#f5f5f5",
                         }}>
-                            <Box key={index} sx={{ display: "flex", gap: "1rem" }}>
+                            <Box key={index + REACT_REPORT_OFFSET} sx={{ display: "flex", gap: "1rem" }}>
                                 <Box>
-                                    {index}
+                                    {index + REACT_REPORT_OFFSET}
                                 </Box>
                                 <Box>
                                     {line}
